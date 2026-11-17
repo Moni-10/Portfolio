@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moni Kashyap · Full Stack Developer</title>
+<meta name="description" content="Moni Kashyap is a full stack developer in Delhi. She builds business websites, product portals and online stores, and business software like CRMs and admin panels.">
+<meta property="og:title" content="Moni Kashyap · Full Stack Developer">
+<meta property="og:description" content="Business websites, online stores and business software for manufacturers, clinics and suppliers across India.">
+<meta property="og:image" content="assets/shots/iec.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000000'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='800' fill='%23FFB224' text-anchor='middle'%3EMK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') t = 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#websites">Skip to work</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="mark" href="#top" aria-label="Moni Kashyap, back to top">
+      <span class="mark-badge" aria-hidden="true">MK</span>
+      <span class="mark-name">Moni Kashyap</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#websites">Websites</a>
+      <a href="#stores">Stores</a>
+      <a href="#software">Software</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <a class="btn btn-small" href="assets/Moni-Kashyap-Resume.pdf" download>Resume</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <p class="hello">Hi, I'm Moni. Full stack developer in Delhi.</p>
+      <h1>I build websites for manufacturers, and the software that runs their sales.</h1>
+      <p class="lede">Business websites, product portals and online stores for factories, clinics and suppliers across India. At Mohindra Mechanical Works I also built the company's CRM from scratch in Laravel, plus a React admin panel for its blog.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#websites">See my work</a>
+        <a class="btn btn-ghost" href="#software">See the CRM</a>
+      </div>
+      <p class="now">Currently the developer at <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">Mohindra Mechanical Works</a>.</p>
+    </div>
+
+    <div class="hero-stage">
+      <a class="browser browser-hero" id="heroBrowser" href="https://www.iec.co.in/" target="_blank" rel="noopener" aria-label="Open the site shown in the preview">
+        <div class="bar" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="address">
+            <svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
+            <span class="typed" id="typed">iec.co.in</span><span class="caret"></span>
+          </span>
+        </div>
+        <div class="viewport">
+          <img id="heroShotA" class="shot is-on" src="assets/shots/iec.jpg" alt="Integrated Engineers &amp; Contractors homepage" width="902" height="1716">
+          <img id="heroShotB" class="shot" src="assets/shots/iec.jpg" alt="" width="902" height="1716" aria-hidden="true">
+          <div class="loadbar" id="loadbar"></div>
+        </div>
+      </a>
+      <ul class="hero-tabs" id="heroTabs" aria-label="Choose a site to preview"></ul>
+    </div>
+  </section>
+
+  <!-- Websites -->
+  <section class="section wrap" id="websites">
+    <div class="section-head">
+      <h2>Websites</h2>
+      <p>Company sites and product portals that are live today. Hover a screenshot to scroll through the page, or open the real thing.</p>
+    </div>
+    <div class="work-list" id="websiteList"></div>
+  </section>
+
+  <!-- Stores -->
+  <section class="section wrap" id="stores">
+    <div class="section-head">
+      <h2>Online stores</h2>
+      <p>E-commerce builds with product listings, cart and checkout. IEC and Ortho Care above also sell online.</p>
+    </div>
+    <div class="work-list stores" id="storeList"></div>
+  </section>
+
+  <!-- Software -->
+  <section class="band" id="software">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Business software</h2>
+        <p>Websites bring the enquiries in. These are the tools I built so the team can work them, end to end, from first lead to purchase order.</p>
+      </div>
+
+      <article class="app">
+        <div class="app-media">
+          <div class="app-tabs" role="tablist" aria-label="CRM screens">
+            <button type="button" role="tab" aria-selected="true" data-shot="assets/apps/crm-dashboard.jpg" data-alt="CRM dashboard with pipeline value, sales pipeline and top performers">Dashboard</button>
+            <button type="button" role="tab" aria-selected="false" data-shot="assets/apps/crm-leads.jpg" data-alt="CRM lead list with filters by type, status, priority, source and owner">Leads</button>
+            <button type="button" role="tab" aria-selected="false" data-shot="assets/apps/crm-deals.jpg" data-alt="CRM deals list with amount, pipeline stage, owner and close date">Deals</button>
+          </div>
+          <div class="browser app-browser">
+            <div class="bar" aria-hidden="true">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="address">crm.mohindramachine.tech</span>
+            </div>
+            <div class="app-view">
+              <img id="crmShot" src="assets/apps/crm-dashboard.jpg" alt="CRM dashboard with pipeline value, sales pipeline and top performers" width="800" height="500">
+            </div>
+          </div>
+          <p class="caption">Screens shown with sample data.</p>
+        </div>
+
+        <div class="app-text">
+          <div class="project-meta">
+            <span class="pill">Built end to end</span>
+            <span class="pill date">Laravel, MySQL</span>
+          </div>
+          <h3>CRM for Mohindra Mechanical Works</h3>
+          <p>A full sales and operations system for a machine manufacturer. It covers everything from the first enquiry to the final purchase order, so leads, quotes, orders and vendors sit in one place.</p>
+          <dl class="modules">
+            <div><dt>Sales</dt><dd>Leads, deals, pipelines, companies, contacts, lead assignment and lead integrations</dd></div>
+            <div><dt>Marketing</dt><dd>Email templates and campaigns, WhatsApp chat and campaigns</dd></div>
+            <div><dt>Billing</dt><dd>Quotations, orders, products and projects</dd></div>
+            <div><dt>Procurement</dt><dd>Purchase orders and vendors</dd></div>
+            <div><dt>Team</dt><dd>Tasks, reminders, calendar, users, roles and permissions</dd></div>
+            <div><dt>Insights</dt><dd>Reports and analytics, audit log and a built-in AI assistant</dd></div>
+          </dl>
+          <a class="visit" href="https://crm.mohindramachine.tech/login" target="_blank" rel="noopener">Live at crm.mohindramachine.tech (staff login)</a>
+        </div>
+      </article>
+
+      <article class="app app-small">
+        <div class="browser app-browser">
+          <div class="bar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="address">blogui.mohindramachine.tech</span>
+          </div>
+          <div class="app-view">
+            <img src="assets/apps/blog-login.jpg" alt="Blog admin panel sign-in screen" width="1000" height="625" loading="lazy">
+          </div>
+        </div>
+        <div class="app-text">
+          <div class="project-meta">
+            <span class="pill">Built end to end</span>
+            <span class="pill date">React</span>
+          </div>
+          <h3>Blog admin panel</h3>
+          <p>A login-protected panel the team uses to write, edit and publish posts on the company website, without touching code.</p>
+          <a class="visit" href="https://blogui.mohindramachine.tech/login" target="_blank" rel="noopener">Live at blogui.mohindramachine.tech (staff login)</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- What I do -->
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>What I do</h2>
+      <p>Most of my clients make or sell something physical. They need a site that explains the product, looks trustworthy and gets found on Google, and then a way to handle the enquiries it brings.</p>
+    </div>
+    <div class="build-grid">
+      <article>
+        <h3>Business websites</h3>
+        <p>Company sites and product portals with clear catalogues, enquiry buttons and WhatsApp links where the client wants leads.</p>
+        <a href="#websites">See the websites</a>
+      </article>
+      <article>
+        <h3>Online stores</h3>
+        <p>E-commerce for products like surgical equipment, footwear and home décor, with listings, cart and checkout.</p>
+        <a href="#stores">See the stores</a>
+      </article>
+      <article>
+        <h3>Business software</h3>
+        <p>CRMs and admin panels: logins, roles, dashboards, pipelines, reports, and integrations like email and WhatsApp.</p>
+        <a href="#software">See the CRM</a>
+      </article>
+      <article>
+        <h3>SEO and speed</h3>
+        <p>On-page SEO, Core Web Vitals and mobile layouts, plus keeping content and product pages up to date after launch.</p>
+        <a href="#experience">See where I do this</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section wrap" id="experience">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p>From internship to building a manufacturer's websites and CRM in-house.</p>
+    </div>
+    <ol class="timeline">
+      <li>
+        <p class="when">Jun 2026 to now</p>
+        <div>
+          <h3>Web Developer, <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">Mohindra Mechanical Works</a></h3>
+          <ul>
+            <li>Built the company CRM end to end in Laravel: leads, deals and pipelines, quotations and orders, purchase orders, email and WhatsApp campaigns, roles and permissions, and reports.</li>
+            <li>Built the React admin panel the team uses to write and publish blog posts.</li>
+            <li>Look after <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">mmwmachine.com</a> and the printing and packaging machine site, handling on-page SEO, product pages and content updates.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <p class="when">Dec 2024 to Jun 2026</p>
+        <div>
+          <h3>Frontend Web Developer, Highxbrand India</h3>
+          <ul>
+            <li>Built and launched 50+ responsive client websites with PHP, HTML5, CSS3, JavaScript and React.js.</li>
+            <li>Worked on SEO, Core Web Vitals, accessibility and mobile layouts.</li>
+            <li>Created landing pages and layouts for business sites, portals and stores, then deployed them on Netlify, Vercel, Hostinger and GoDaddy.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <p class="when">Jun 2024 to Nov 2024</p>
+        <div>
+          <h3>Web Development Intern, Gratix Technology</h3>
+          <ul>
+            <li>Built responsive landing pages with HTML5, CSS3, JavaScript and Bootstrap.</li>
+            <li>Improved UI, SEO structure, accessibility and mobile layouts on existing pages.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Toolkit + side projects -->
+  <section class="section wrap split">
+    <div>
+      <div class="section-head">
+        <h2>Toolkit</h2>
+      </div>
+      <dl class="toolkit">
+        <div><dt>Frontend</dt><dd>HTML5, CSS3, JavaScript, TypeScript, React.js, Next.js, Tailwind CSS, Bootstrap, Material UI</dd></div>
+        <div><dt>Backend</dt><dd>PHP, Laravel, Node.js, Express.js, REST APIs, JWT auth</dd></div>
+        <div><dt>Databases</dt><dd>MySQL, MongoDB</dd></div>
+        <div><dt>SEO and speed</dt><dd>On-page SEO, Core Web Vitals, accessibility, responsive design</dd></div>
+        <div><dt>Shipping</dt><dd>Git, GitHub, Netlify, Vercel, Hostinger, GoDaddy</dd></div>
+        <div><dt>Design</dt><dd>Canva, social media creatives, banners, video and reel editing</dd></div>
+      </dl>
+    </div>
+    <div>
+      <div class="section-head">
+        <h2>Side projects</h2>
+      </div>
+      <ul class="side">
+        <li><h3>AI SaaS dashboard</h3><p>Analytics, login and reports, with charts and reusable components.</p><span>Next.js, TypeScript, Tailwind CSS</span></li>
+        <li><h3>MERN CRM</h3><p>JWT login, role-based access, and modules for customers and lead tracking.</p><span>MongoDB, Express.js, React.js, Node.js</span></li>
+        <li><h3>E-commerce platform</h3><p>Cart, product and order management, and customer accounts.</p><span>MERN stack, REST APIs</span></li>
+        <li><h3>Real-time chat</h3><p>Live messaging and instant notifications.</p><span>React.js, Node.js, Socket.io</span></li>
+      </ul>
+      <a class="text-link" href="https://github.com/Moni-10" target="_blank" rel="noopener">Code on GitHub</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2>Need a website, or the system behind it?</h2>
+      <p>Tell me what you sell and who buys it. I'll reply with how I'd approach it.</p>
+      <div class="email-row">
+        <a class="big-email" href="mailto:monikashyap902@gmail.com">monikashyap902@gmail.com</a>
+        <button class="copy" type="button" id="copyEmail">Copy email</button>
+      </div>
+      <ul class="contact-links">
+        <li><a href="tel:+919650916417">+91 96509 16417</a></li>
+        <li><a href="https://linkedin.com/in/monikashyap10" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/Moni-10" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="assets/Moni-Kashyap-Resume.pdf" download>Download resume (PDF)</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer wrap">
+  <p>© <span id="year">2026</span> Moni Kashyap, Delhi</p>
+  <a href="#top">Back to top</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
