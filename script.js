@@ -425,11 +425,15 @@
       });
     }
 
+    // Don't keep the visitor waiting on a stuck server: give up after 10s and use the backup route.
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var giveUp = ctrl ? setTimeout(function () { ctrl.abort(); }, 10000) : null;
     fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(readJson).then(function (res) {
+      body: JSON.stringify(payload),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (r) { clearTimeout(giveUp); return readJson(r); }).then(function (res) {
       if (res.ok && res.data.ok) return { sent: true };
       // Problems with what the visitor typed, or too many tries: show the server's message.
       if (res.status === 400 || res.status === 429) return { sent: false, error: res.data.error };

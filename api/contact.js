@@ -36,6 +36,27 @@ function readBody(req) {
   });
 }
 
+// Reused across warm invocations so a second message skips the TLS + login handshake.
+// Short timeouts mean a bad connection fails fast instead of leaving the visitor waiting.
+let cachedTransport = null;
+let cachedKey = '';
+function getTransport(host, portRaw, secureRaw, user, pass) {
+  const port = Number(portRaw || 465);
+  const key = [host, port, user].join('|');
+  if (cachedTransport && cachedKey === key) return cachedTransport;
+  cachedTransport = nodemailer.createTransport({
+    host,
+    port,
+    secure: secureRaw ? secureRaw === 'true' : port === 465,
+    auth: { user, pass },
+    connectionTimeout: 5000,
+    greetingTimeout: 5000,
+    socketTimeout: 8000,
+  });
+  cachedKey = key;
+  return cachedTransport;
+}
+
 function send(res, status, payload) {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json');
@@ -79,13 +100,7 @@ module.exports = async function handler(req, res) {
     return send(res, 503, { error: "The contact form isn't connected to email yet. Please email monikashyap902@gmail.com directly." });
   }
 
-  const port = Number(SMTP_PORT || 465);
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure: SMTP_SECURE ? SMTP_SECURE === 'true' : port === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
+  const transporter = getTransport(SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS);
 
   try {
     await transporter.sendMail({

@@ -1090,7 +1090,9 @@ p { margin: 0; }
 .site-header.scrolled { border-bottom-color: color-mix(in srgb, #FFB224 35%, transparent); }
 .mark-name { color: var(--ink); }
 .mark-name::first-letter { color: var(--accent-text); }
-.nav a { color: var(--ink); font-weight: 600; transition: color .2s ease; }
+.nav a { color: var(--ink); font-weight: 600; transition: color .2s ease; text-transform: uppercase; letter-spacing: .08em; font-size: .86rem; }
+.header-actions .btn-small { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; }
+@media (max-width: 820px) { .nav a { font-size: .95rem; } }
 .nav a:hover { color: var(--accent-text); }
 .nav a::after { bottom: -8px; height: 2.5px; border-radius: 2px; background: #FFB224; }
 .nav a.active { color: var(--accent-text); }
