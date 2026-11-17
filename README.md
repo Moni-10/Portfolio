@@ -6,7 +6,8 @@ Plain HTML, CSS and JavaScript, plus one Vercel function for the contact form. T
 
 - `index.html`: page content
 - `styles.css`: layout and the dark and light themes (dark is the default)
-- `script.js`: project data, hero preview, screenshot tabs, theme toggle and contact form
+- `script.js`: project data, hero preview, screenshot tabs, theme toggle, mobile menu, scroll animations and contact form
+- `bg.js`: Three.js animated background (loaded from cdnjs)
 - `api/contact.js`: Vercel function that emails contact form messages over SMTP (nodemailer)
 - `assets/shots`: website screenshots
 - `assets/apps`: CRM and blog admin screenshots (sample data)
@@ -23,4 +24,4 @@ Add these under Project > Settings > Environment Variables, then redeploy. See `
 | `SMTP_PASS` | a Gmail App Password (Google Account > Security > 2-Step Verification > App passwords) |
 | `CONTACT_TO_EMAIL` | where messages should arrive |
 
-Until these are set, the form tells visitors to email directly instead.
+If these aren't set (or the site runs somewhere without the function), the form falls back to [FormSubmit](https://formsubmit.co), which emails monikashyap902@gmail.com directly. The first message sent that way triggers a one-time activation email from FormSubmit; click the link in it once and later messages arrive normally.

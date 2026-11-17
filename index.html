@@ -13,29 +13,33 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=15">
 <script>
   (function () {
     var t = null;
     try { t = localStorage.getItem('theme'); } catch (e) {}
     if (t !== 'light' && t !== 'dark') t = 'dark';
     document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.classList.add('js');
   })();
 </script>
 </head>
 <body>
 
+<canvas id="bg3d" aria-hidden="true"></canvas>
 <a class="skip" href="#websites">Skip to work</a>
 
 <header class="site-header">
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="wrap header-inner">
     <a class="mark" href="#top" aria-label="Moni Kashyap, back to top">
       <span class="mark-badge" aria-hidden="true">MK</span>
       <span class="mark-name">Moni Kashyap</span>
     </a>
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" id="mainNav" aria-label="Main">
       <a href="#websites">Websites</a>
       <a href="#stores">Stores</a>
+      <a href="#freelance">Freelance</a>
       <a href="#software">Software</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
@@ -46,6 +50,9 @@
         <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
       </button>
       <a class="btn btn-small" href="assets/Moni-Kashyap-Resume.pdf" download>Resume</a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="l1" d="M4 7h16"/><path class="l2" d="M4 12h16"/><path class="l3" d="M4 17h16"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -55,39 +62,52 @@
   <!-- Hero -->
   <section class="hero wrap">
     <div class="hero-copy">
-      <p class="hello">Hi, I'm Moni. Full stack developer in Delhi.</p>
-      <h1>I build websites for manufacturers, and the software that runs their sales.</h1>
+      <p class="hello"><img class="hello-avatar" src="assets/my-avatar.jpg" alt="" width="200" height="200"><span>Hi, I'm Moni. Full stack developer in Delhi.</span></p>
+      <h1>I build <span class="hl">websites</span> for manufacturers, and the <span class="hl">software</span> that runs their sales.</h1>
       <p class="lede">Business websites, product portals and online stores for factories, clinics and suppliers across India. At Mohindra Mechanical Works I also built the company's CRM from scratch in Laravel, plus a React admin panel for its blog.</p>
       <div class="hero-cta">
         <a class="btn" href="#websites">See my work</a>
         <a class="btn btn-ghost" href="#software">See the CRM</a>
       </div>
-      <p class="now">Currently the developer at <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">Mohindra Mechanical Works</a>.</p>
     </div>
 
     <div class="hero-stage">
-      <a class="browser browser-hero" id="heroBrowser" href="https://www.iec.co.in/" target="_blank" rel="noopener" aria-label="Open the site shown in the preview">
-        <div class="bar" aria-hidden="true">
-          <span class="dots"><i></i><i></i><i></i></span>
-          <span class="address">
-            <svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
-            <span class="typed" id="typed">iec.co.in</span><span class="caret"></span>
-          </span>
+      <div class="hero-visual">
+        <canvas id="hero3d" aria-hidden="true"></canvas>
+        <div class="orbit" aria-hidden="true">
+          <span class="planet" style="--a: 18deg"><em>Laravel</em></span>
+          <span class="planet" style="--a: 90deg"><em>React</em></span>
+          <span class="planet" style="--a: 162deg"><em>PHP</em></span>
+          <span class="planet" style="--a: 234deg"><em>Node.js</em></span>
+          <span class="planet" style="--a: 306deg"><em>MySQL</em></span>
         </div>
-        <div class="viewport">
-          <img id="heroShotA" class="shot is-on" src="assets/shots/iec.jpg" alt="Integrated Engineers &amp; Contractors homepage" width="902" height="1716">
-          <img id="heroShotB" class="shot" src="assets/shots/iec.jpg" alt="" width="902" height="1716" aria-hidden="true">
-          <div class="loadbar" id="loadbar"></div>
-        </div>
-      </a>
-      <ul class="hero-tabs" id="heroTabs" aria-label="Choose a site to preview"></ul>
+        <figure class="portrait">
+          <span class="ring" aria-hidden="true"></span>
+          <img src="assets/my-1.jpeg" alt="Moni Kashyap" width="841" height="1062" fetchpriority="high">
+        </figure>
+        <span class="badge badge-status"><i></i>Open to freelance work</span>
+        <span class="badge badge-exp"><strong>50+</strong> sites shipped</span>
+        <span class="badge badge-name"><b>Moni Kashyap</b><small>Full stack developer</small></span>
+      </div>
     </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+  <!-- Counters -->
+  <section class="counters" aria-label="Highlights">
+    <ul class="wrap counter-grid">
+      <li><strong data-count="50" data-suffix="+">50+</strong><span>Client websites launched</span></li>
+      <li><strong data-count="2" data-suffix="+">2+</strong><span>Years building for the web</span></li>
+      <li><strong data-count-auto="sites">21</strong><span>Live sites in this portfolio</span></li>
+      <li><strong data-count="4">4</strong><span>CRMs and admin panels built</span></li>
+    </ul>
   </section>
 
   <!-- Websites -->
   <section class="section wrap" id="websites">
     <div class="section-head">
-      <h2>Websites</h2>
+      <h2 data-eyebrow="01 · Selected work">Websites</h2>
       <p>Company sites and product portals that are live today. Hover a screenshot to scroll through the page, or open the real thing.</p>
     </div>
     <div class="work-list" id="websiteList"></div>
@@ -96,17 +116,56 @@
   <!-- Stores -->
   <section class="section wrap" id="stores">
     <div class="section-head">
-      <h2>Online stores</h2>
+      <h2 data-eyebrow="02 · E-commerce">Online stores</h2>
       <p>E-commerce builds with product listings, cart and checkout. IEC and Ortho Care above also sell online.</p>
     </div>
     <div class="work-list stores" id="storeList"></div>
   </section>
 
+  <!-- Freelance -->
+  <section class="section wrap" id="freelance">
+    <div class="section-head">
+      <h2 data-eyebrow="03 · Freelance">Freelance projects</h2>
+      <p>A network of content sites for a freelance client, plus the React admin panel their team uses to write and publish across them.</p>
+    </div>
+
+    <article class="card panel-feature">
+      <a class="browser panel-browser" href="https://admin.blog-panel.clickstar.pl/" target="_blank" rel="noopener" aria-label="Open the Blog Panel sign-in in a new tab">
+        <div class="bar" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="address">admin.blog-panel.clickstar.pl</span>
+        </div>
+        <div class="panel-mock" aria-hidden="true">
+          <div class="pm-side">
+            <b>Blog Panel</b>
+            <span class="on">Posts</span><span>Categories</span><span>Sites</span><span>Media</span><span>Users</span>
+          </div>
+          <div class="pm-main">
+            <div class="pm-top"><i></i><em>+ New post</em></div>
+            <div class="pm-sites" id="pmSites"></div>
+            <div class="pm-rows"><p></p><p></p><p></p><p></p><p></p></div>
+          </div>
+        </div>
+        <span class="open-hint">Open panel ↗</span>
+      </a>
+      <div class="project-text">
+        <div class="project-top"><span class="num">Admin panel</span><span class="live">Live</span></div>
+        <h3>Blog Panel</h3>
+        <p>A login-protected React panel for running several blogs from one place: write and edit posts, sort them into categories and publish to each site without touching code.</p>
+        <div class="project-meta"><span class="pill">Freelance</span><span class="pill date">React</span></div>
+        <a class="visit" href="https://admin.blog-panel.clickstar.pl/" target="_blank" rel="noopener">Live at admin.blog-panel.clickstar.pl (staff login)</a>
+        <p class="caption">Panel preview is an illustration; the live panel needs a staff login.</p>
+      </div>
+    </article>
+
+    <div class="blog-list" id="blogList"></div>
+  </section>
+
   <!-- Software -->
-  <section class="band" id="software">
+  <section class="band" id="software" data-fx="network">
     <div class="wrap">
       <div class="section-head">
-        <h2>Business software</h2>
+        <h2 data-eyebrow="04 · Built in-house">Business software</h2>
         <p>Websites bring the enquiries in. These are the tools I built so the team can work them, end to end, from first lead to purchase order.</p>
       </div>
 
@@ -168,13 +227,34 @@
           <a class="visit" href="https://blogui.mohindramachine.tech/login" target="_blank" rel="noopener">Live at blogui.mohindramachine.tech (staff login)</a>
         </div>
       </article>
+
+      <article class="app app-small app-dash">
+        <div class="app-text">
+          <div class="project-meta">
+            <span class="pill">Built end to end</span>
+            <span class="pill date">Dashboard</span>
+          </div>
+          <h3>Pro Dashboard</h3>
+          <p>A separate login-protected dashboard for the Mohindra Mechanical Works team, alongside the CRM and the blog panel.</p>
+          <a class="visit" href="https://pro-dashboard.mohindramachine.tech/" target="_blank" rel="noopener">Live at pro-dashboard.mohindramachine.tech (staff login)</a>
+        </div>
+        <div class="browser app-browser">
+          <div class="bar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="address">pro-dashboard.mohindramachine.tech</span>
+          </div>
+          <div class="app-view">
+            <img src="assets/apps/pro-dashboard.jpg" alt="Pro Dashboard sign-in screen" width="1000" height="625" loading="lazy">
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
   <!-- What I do -->
   <section class="section wrap">
     <div class="section-head">
-      <h2>What I do</h2>
+      <h2 data-eyebrow="05 · Services">What I do</h2>
       <p>Most of my clients make or sell something physical. They need a site that explains the product, looks trustworthy and gets found on Google, and then a way to handle the enquiries it brings.</p>
     </div>
     <div class="build-grid">
@@ -204,39 +284,56 @@
   <!-- Experience -->
   <section class="section wrap" id="experience">
     <div class="section-head">
-      <h2>Experience</h2>
+      <h2 data-eyebrow="06 · Career">Experience</h2>
       <p>From internship to building a manufacturer's websites and CRM in-house.</p>
     </div>
     <ol class="timeline">
       <li>
-        <p class="when">Jun 2026 to now</p>
+        <p class="when">Jun 2026 – Present</p>
         <div>
-          <h3>Web Developer, <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">Mohindra Mechanical Works</a></h3>
+          <h3>Web Developer</h3>
+          <p class="company"><a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">Mohindra Mechanical Works</a></p>
           <ul>
-            <li>Built the company CRM end to end in Laravel: leads, deals and pipelines, quotations and orders, purchase orders, email and WhatsApp campaigns, roles and permissions, and reports.</li>
-            <li>Built the React admin panel the team uses to write and publish blog posts.</li>
-            <li>Look after <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">mmwmachine.com</a> and the printing and packaging machine site, handling on-page SEO, product pages and content updates.</li>
+            <li>Built the company CRM end to end in Laravel and MySQL, covering leads, deals and pipelines, quotations and orders, purchase orders and vendors, email and WhatsApp campaigns, roles and permissions, reports and audit logs.</li>
+            <li>Built the React blog admin panel used by the team to write, edit and publish posts on the company website.</li>
+            <li>Manage <a href="https://www.mmwmachine.com/" target="_blank" rel="noopener">mmwmachine.com</a> and the printing and packaging machine website, handling on-page SEO, product pages and content updates.</li>
           </ul>
         </div>
       </li>
       <li>
-        <p class="when">Dec 2024 to Jun 2026</p>
+        <p class="when">Dec 2024 – Jun 2026</p>
         <div>
-          <h3>Frontend Web Developer, Highxbrand India</h3>
+          <h3>Frontend Web Developer</h3>
+          <p class="company">Highxbrand India Private Limited</p>
           <ul>
-            <li>Built and launched 50+ responsive client websites with PHP, HTML5, CSS3, JavaScript and React.js.</li>
-            <li>Worked on SEO, Core Web Vitals, accessibility and mobile layouts.</li>
-            <li>Created landing pages and layouts for business sites, portals and stores, then deployed them on Netlify, Vercel, Hostinger and GoDaddy.</li>
+            <li>Built and launched 50+ responsive client websites using PHP, HTML5, CSS3, JavaScript and React.js.</li>
+            <li>Worked on SEO, Core Web Vitals, accessibility and mobile layouts to improve website performance and search visibility.</li>
+            <li>Created landing pages and page layouts for business websites, portals and e-commerce stores.</li>
+            <li>Integrated websites with REST APIs and deployed live projects on Netlify, Vercel, Hostinger and GoDaddy.</li>
           </ul>
         </div>
       </li>
       <li>
-        <p class="when">Jun 2024 to Nov 2024</p>
+        <p class="when">Internship</p>
         <div>
-          <h3>Web Development Intern, Gratix Technology</h3>
+          <h3>Web Development Intern</h3>
+          <p class="company">Null Class Edtech Private Limited</p>
           <ul>
-            <li>Built responsive landing pages with HTML5, CSS3, JavaScript and Bootstrap.</li>
-            <li>Improved UI, SEO structure, accessibility and mobile layouts on existing pages.</li>
+            <li>Developed responsive web pages using HTML5, CSS3, JavaScript and Bootstrap.</li>
+            <li>Worked on frontend development, UI improvements and website responsiveness.</li>
+            <li>Assisted in building interactive website components and improving user experience.</li>
+            <li>Gained practical experience in web development, debugging and maintaining web projects.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <p class="when">Jun 2024 – Nov 2024</p>
+        <div>
+          <h3>Web Development Intern</h3>
+          <p class="company">Gratix Technology</p>
+          <ul>
+            <li>Built responsive landing pages using HTML5, CSS3, JavaScript and Bootstrap.</li>
+            <li>Improved UI, SEO structure, accessibility and mobile responsiveness on existing web pages.</li>
           </ul>
         </div>
       </li>
@@ -247,7 +344,7 @@
   <section class="section wrap split">
     <div>
       <div class="section-head">
-        <h2>Toolkit</h2>
+        <h2 data-eyebrow="07 · Stack">Toolkit</h2>
       </div>
       <dl class="toolkit">
         <div><dt>Frontend</dt><dd>HTML5, CSS3, JavaScript, TypeScript, React.js, Next.js, Tailwind CSS, Bootstrap, Material UI</dd></div>
@@ -260,7 +357,7 @@
     </div>
     <div>
       <div class="section-head">
-        <h2>Side projects</h2>
+        <h2 data-eyebrow="08 · Practice">Side projects</h2>
       </div>
       <ul class="side">
         <li><h3>AI SaaS dashboard</h3><p>Analytics, login and reports, with charts and reusable components.</p><span>Next.js, TypeScript, Tailwind CSS</span></li>
@@ -273,10 +370,10 @@
   </section>
 
   <!-- Contact -->
-  <section class="contact" id="contact">
+  <section class="contact" id="contact" data-fx="network">
     <div class="wrap contact-grid">
       <div class="contact-intro">
-        <h2>Need a website, or the system behind it?</h2>
+        <h2>Need a <em>website</em>, or the system behind it?</h2>
         <p>Tell me what you sell and who buys it. I'll reply with how I'd approach it.</p>
         <div class="email-row">
           <a class="big-email" href="mailto:monikashyap902@gmail.com">monikashyap902@gmail.com</a>
@@ -331,6 +428,10 @@
   <a href="#top">Back to top</a>
 </footer>
 
-<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="bg.js?v=14"></script>
+<script src="hero3d.js?v=13"></script>
+<script src="network.js?v=13"></script>
+<script src="script.js?v=15"></script>
 </body>
 </html>
