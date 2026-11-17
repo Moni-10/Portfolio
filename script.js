@@ -373,7 +373,7 @@
     [name, email, message].forEach(function (f) { f.removeAttribute('aria-invalid'); });
     if (!name.value.trim()) { problems.push('add your name'); name.setAttribute('aria-invalid', 'true'); }
     if (!EMAIL_RE.test(email.value.trim())) { problems.push('check the email address'); email.setAttribute('aria-invalid', 'true'); }
-    if (message.value.trim().length < 10) { problems.push('write a few more words in the message'); message.setAttribute('aria-invalid', 'true'); }
+    if (!message.value.trim()) { problems.push('write a message'); message.setAttribute('aria-invalid', 'true'); }
     return problems;
   }
 

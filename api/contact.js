@@ -92,9 +92,18 @@ module.exports = async function handler(req, res) {
 
   if (!name) return send(res, 400, { error: 'Add your name.' });
   if (!EMAIL_RE.test(email)) return send(res, 400, { error: 'Check the email address.' });
-  if (message.length < 10) return send(res, 400, { error: 'Write a few more words in the message.' });
+  if (!message) return send(res, 400, { error: 'Write a message.' });
 
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL } = process.env;
+  // Values pasted into Vercel often pick up stray spaces, newlines or quotes; clean them.
+  // Gmail shows app passwords as "abcd efgh ijkl mnop", so drop every space from the password.
+  const clean = (v) => String(v || '').trim().replace(/^["']|["']$/g, '').trim();
+  const SMTP_HOST = clean(process.env.SMTP_HOST);
+  const SMTP_PORT = clean(process.env.SMTP_PORT);
+  const SMTP_USER = clean(process.env.SMTP_USER);
+  const SMTP_PASS = clean(process.env.SMTP_PASS).replace(/\s+/g, '');
+  const SMTP_SECURE = clean(process.env.SMTP_SECURE);
+  const CONTACT_TO_EMAIL = clean(process.env.CONTACT_TO_EMAIL);
+  const CONTACT_FROM_EMAIL = clean(process.env.CONTACT_FROM_EMAIL);
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !CONTACT_TO_EMAIL) {
     console.error('[contact] SMTP is not configured. Set the environment variables in Vercel.');
     return send(res, 503, { error: "The contact form isn't connected to email yet. Please email monikashyap902@gmail.com directly." });
@@ -115,8 +124,15 @@ module.exports = async function handler(req, res) {
         `<p style="white-space:pre-wrap">${escapeHtml(message)}</p>`,
     });
   } catch (err) {
-    console.error('[contact] SMTP error', err);
-    return send(res, 502, { error: "The email server didn't accept the message. Please try again, or email directly." });
+    console.error('[contact] SMTP error', err && err.code, err && err.responseCode, err && err.response);
+    // Drop the cached connection so the next try starts fresh (e.g. after fixing the password).
+    cachedTransport = null;
+    // The code is safe to share (no secrets) and tells the owner what to fix, e.g. EAUTH / 535 = wrong app password.
+    return send(res, 502, {
+      error: "The email server didn't accept the message. Please try again, or email directly.",
+      code: (err && err.code) || 'SMTP',
+      smtp: (err && err.responseCode) || null,
+    });
   }
 
   return send(res, 200, { ok: true });
