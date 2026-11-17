@@ -274,19 +274,54 @@
 
   <!-- Contact -->
   <section class="contact" id="contact">
-    <div class="wrap">
-      <h2>Need a website, or the system behind it?</h2>
-      <p>Tell me what you sell and who buys it. I'll reply with how I'd approach it.</p>
-      <div class="email-row">
-        <a class="big-email" href="mailto:monikashyap902@gmail.com">monikashyap902@gmail.com</a>
-        <button class="copy" type="button" id="copyEmail">Copy email</button>
+    <div class="wrap contact-grid">
+      <div class="contact-intro">
+        <h2>Need a website, or the system behind it?</h2>
+        <p>Tell me what you sell and who buys it. I'll reply with how I'd approach it.</p>
+        <div class="email-row">
+          <a class="big-email" href="mailto:monikashyap902@gmail.com">monikashyap902@gmail.com</a>
+          <button class="copy" type="button" id="copyEmail">Copy email</button>
+        </div>
+        <ul class="contact-links">
+          <li><a href="tel:+919650916417">+91 96509 16417</a></li>
+          <li><a href="https://linkedin.com/in/monikashyap10" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/Moni-10" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="assets/Moni-Kashyap-Resume.pdf" download>Download resume (PDF)</a></li>
+        </ul>
       </div>
-      <ul class="contact-links">
-        <li><a href="tel:+919650916417">+91 96509 16417</a></li>
-        <li><a href="https://linkedin.com/in/monikashyap10" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/Moni-10" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="assets/Moni-Kashyap-Resume.pdf" download>Download resume (PDF)</a></li>
-      </ul>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <h3>Send a message</h3>
+        <div class="field-row">
+          <label class="field">
+            <span>Your name</span>
+            <input name="name" type="text" autocomplete="name" required maxlength="100">
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required maxlength="200">
+          </label>
+        </div>
+        <label class="field">
+          <span>Looking for</span>
+          <select name="reason">
+            <option>A website</option>
+            <option>An online store</option>
+            <option>A CRM or admin panel</option>
+            <option>A job opportunity</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Message</span>
+          <textarea name="message" rows="5" required minlength="10" maxlength="4000" placeholder="What does your business do, and what should the site or tool help with?"></textarea>
+        </label>
+        <label class="hp" aria-hidden="true">Company <input name="company" type="text" tabindex="-1" autocomplete="off"></label>
+        <div class="form-foot">
+          <button class="btn btn-send" type="submit">Send message</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </div>
+      </form>
     </div>
   </section>
 </main>

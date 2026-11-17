@@ -199,5 +199,65 @@
     }
   });
 
+  /* ---------- Contact form ---------- */
+  var form = $('contactForm');
+  var statusEl = $('formStatus');
+  var sendBtn = form.querySelector('button[type="submit"]');
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setStatus(text, kind) {
+    statusEl.textContent = text;
+    statusEl.className = 'form-status' + (kind ? ' ' + kind : '');
+  }
+  function check() {
+    var problems = [];
+    var name = form.elements.name, email = form.elements.email, message = form.elements.message;
+    [name, email, message].forEach(function (f) { f.removeAttribute('aria-invalid'); });
+    if (!name.value.trim()) { problems.push('add your name'); name.setAttribute('aria-invalid', 'true'); }
+    if (!EMAIL_RE.test(email.value.trim())) { problems.push('check the email address'); email.setAttribute('aria-invalid', 'true'); }
+    if (message.value.trim().length < 10) { problems.push('write a few more words in the message'); message.setAttribute('aria-invalid', 'true'); }
+    return problems;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var problems = check();
+    if (problems.length) {
+      var text = problems.join(', ');
+      setStatus(text.charAt(0).toUpperCase() + text.slice(1) + '.', 'err');
+      form.querySelector('[aria-invalid="true"]').focus();
+      return;
+    }
+    var payload = {
+      name: form.elements.name.value,
+      email: form.elements.email.value,
+      reason: form.elements.reason.value,
+      message: form.elements.message.value,
+      company: form.elements.company.value
+    };
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending…';
+    setStatus('');
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (data) { return { ok: r.ok, data: data }; });
+    }).then(function (res) {
+      if (res.ok && res.data.ok) {
+        form.reset();
+        setStatus('Message sent. I’ll reply to your email soon.', 'ok');
+      } else {
+        setStatus(res.data.error || 'The message didn’t send. Try again, or email monikashyap902@gmail.com.', 'err');
+      }
+    }).catch(function () {
+      setStatus('No connection to the server. Check your internet and try again, or email monikashyap902@gmail.com.', 'err');
+    }).then(function () {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Send message';
+    });
+  });
+
   $('year').textContent = new Date().getFullYear();
 })();

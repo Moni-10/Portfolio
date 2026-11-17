@@ -1,0 +1,11 @@
+{
+  "name": "moni-portfolio",
+  "private": true,
+  "description": "Static portfolio with one Vercel function for the contact form.",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^10.5.0"
+  }
+}
