@@ -115,7 +115,8 @@ module.exports = async function handler(req, res) {
     await transporter.sendMail({
       from: CONTACT_FROM_EMAIL || `Portfolio contact <${SMTP_USER}>`,
       to: CONTACT_TO_EMAIL,
-      replyTo: `${name} <${email}>`,
+      // Object form lets nodemailer quote names with <, >, :, commas or quotes safely.
+      replyTo: { name, address: email },
       subject: `${reason}: message from ${name}`,
       text: `${name} (${email})\nLooking for: ${reason}\n\n${message}`,
       html:
